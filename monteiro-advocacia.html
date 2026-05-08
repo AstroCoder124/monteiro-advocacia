@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monteiro & Associados · Advocacia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0A0A08;
+  --dark:#111110;
+  --surface:#181816;
+  --gold:#C8A96E;
+  --gold2:#E2C99A;
+  --cream:#F5F0E8;
+  --muted:#888880;
+  --border:rgba(200,169,110,0.18);
+  --border2:rgba(255,255,255,0.07);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;width:100%;z-index:100;
+  padding:22px 64px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s;
+}
+nav.scrolled{
+  background:rgba(10,10,8,.96);
+  backdrop-filter:blur(16px);
+  padding:16px 64px;
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Libre Baskerville',serif;
+  font-size:17px;letter-spacing:1px;color:var(--cream);text-decoration:none;
+}
+.logo span{color:var(--gold);}
+.nav-center{display:flex;gap:36px;list-style:none;}
+.nav-center a{
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(245,240,232,.55);text-decoration:none;transition:color .3s;
+}
+.nav-center a:hover{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-phone{font-size:12px;color:var(--muted);}
+.nav-cta{
+  border:1px solid var(--gold);color:var(--gold);
+  background:transparent;padding:9px 22px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s;
+  text-decoration:none;
+}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#0A0A08 0%,#14120A 60%,#0A0A08 100%);
+}
+.hero-texture{
+  position:absolute;inset:0;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+}
+.hero-line-v{
+  position:absolute;left:64px;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);
+  opacity:.2;
+}
+.hero-content{
+  position:relative;z-index:2;
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:140px 64px 100px 120px;
+  max-width:900px;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:16px;
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;
+}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+.hero-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(48px,7vw,96px);
+  font-weight:400;line-height:1.0;
+  color:var(--cream);margin-bottom:32px;
+  letter-spacing:-1px;
+}
+.hero-title em{display:block;font-style:italic;color:var(--gold);}
+.hero-desc{
+  font-size:16px;line-height:1.9;color:var(--muted);
+  max-width:520px;margin-bottom:56px;font-weight:300;
+}
+.hero-actions{display:flex;align-items:center;gap:32px;}
+.btn-gold{
+  background:var(--gold);color:var(--black);border:none;
+  padding:16px 40px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;
+  transition:all .3s;text-decoration:none;display:inline-block;
+}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-ghost-gold{
+  color:var(--cream);font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;display:flex;align-items:center;gap:10px;transition:color .3s;
+}
+.btn-ghost-gold:hover{color:var(--gold);}
+.btn-ghost-gold::after{content:'→';transition:transform .3s;}
+.btn-ghost-gold:hover::after{transform:translateX(4px);}
+
+.hero-bottom{
+  position:relative;z-index:2;
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.hero-stat{
+  padding:32px 64px;border-right:1px solid var(--border);
+  position:relative;
+}
+.hero-stat:last-child{border-right:none;}
+.stat-n{
+  font-family:'Libre Baskerville',serif;
+  font-size:42px;font-weight:400;color:var(--cream);line-height:1;
+}
+.stat-n span{color:var(--gold);}
+.stat-l{font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-top:6px;text-transform:uppercase;}
+
+/* AREAS */
+.areas{
+  background:var(--surface);padding:120px 64px;
+  position:relative;
+}
+.areas::before{
+  content:'';position:absolute;top:0;left:64px;right:64px;
+  height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:.3;
+}
+.areas-header{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+  align-items:flex-end;margin-bottom:72px;
+}
+.section-tag{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.section-tag::before{content:'';width:28px;height:1px;background:var(--gold);}
+.section-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(34px,4vw,52px);font-weight:400;
+  color:var(--cream);line-height:1.15;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.areas-desc{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;max-width:420px;}
+
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.area-card{
+  background:var(--surface);padding:44px 36px;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:background .35s;
+}
+.area-card:hover{background:rgba(200,169,110,0.06);}
+.area-card::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:2px;background:var(--gold);
+  transition:width .45s ease;
+}
+.area-card:hover::after{width:100%;}
+.area-num{
+  font-family:'Libre Baskerville',serif;
+  font-size:52px;font-weight:400;
+  color:rgba(200,169,110,0.1);line-height:1;margin-bottom:24px;
+  font-style:italic;
+}
+.area-icon{font-size:26px;margin-bottom:16px;}
+.area-name{
+  font-family:'Libre Baskerville',serif;
+  font-size:22px;font-weight:400;color:var(--cream);margin-bottom:12px;
+}
+.area-desc{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300;}
+.area-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:24px;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);text-decoration:none;
+  transition:gap .3s;
+}
+.area-link:hover{gap:14px;}
+
+/* ABOUT */
+.about{
+  padding:120px 64px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  background:var(--black);
+}
+.about-left{position:relative;}
+.about-main-box{
+  width:100%;padding-bottom:120%;
+  background:linear-gradient(160deg,#1E1A12 0%,#14120A 100%);
+  position:relative;
+}
+.about-main-box::before{
+  content:'"';
+  position:absolute;bottom:32px;right:32px;
+  font-family:'Libre Baskerville',serif;
+  font-size:180px;color:rgba(200,169,110,0.06);
+  line-height:1;
+}
+.about-year-badge{
+  position:absolute;bottom:-24px;right:-24px;
+  width:120px;height:120px;background:var(--gold);
+  border-radius:50%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.about-year{font-family:'Libre Baskerville',serif;font-size:32px;color:var(--black);font-weight:700;line-height:1;}
+.about-year-label{font-size:9px;letter-spacing:2px;color:rgba(10,10,8,.6);text-transform:uppercase;}
+.about-right{padding-left:20px;}
+.about-text{font-size:15px;color:var(--muted);line-height:1.9;font-weight:300;margin:24px 0 40px;}
+.about-quote{
+  border-left:2px solid var(--gold);padding-left:24px;margin:36px 0;
+}
+.about-quote p{
+  font-family:'Libre Baskerville',serif;font-size:18px;
+  font-style:italic;color:var(--cream);line-height:1.6;
+}
+.about-quote cite{font-size:12px;color:var(--muted);margin-top:10px;display:block;font-style:normal;letter-spacing:1px;}
+.credentials{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.credential{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:16px;border:1px solid var(--border);
+}
+.cred-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.cred-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.cred-text strong{display:block;color:var(--cream);margin-bottom:2px;font-weight:500;}
+
+/* TEAM */
+.team{
+  background:var(--surface);padding:120px 64px;
+}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:72px;}
+.team-card{position:relative;}
+.team-photo{
+  width:100%;padding-bottom:130%;
+  background:linear-gradient(160deg,#1E1A12,#14120A);
+  position:relative;overflow:hidden;margin-bottom:20px;
+}
+.team-photo-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+}
+.team-avatar{
+  width:72px;height:72px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Libre Baskerville',serif;font-size:28px;
+  color:var(--black);font-weight:700;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+}
+.team-photo-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,8,.9) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+  display:flex;align-items:flex-end;padding:20px;
+}
+.team-card:hover .team-photo-overlay{opacity:1;}
+.team-socials{display:flex;gap:8px;}
+.team-social{
+  width:32px;height:32px;border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--gold);cursor:pointer;transition:all .2s;
+}
+.team-social:hover{background:var(--gold);color:var(--black);}
+.team-name{
+  font-family:'Libre Baskerville',serif;font-size:18px;
+  color:var(--cream);margin-bottom:4px;
+}
+.team-area{font-size:12px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.team-oab{font-size:11px;color:var(--muted);}
+
+/* RESULTS */
+.results-strip{
+  background:var(--gold);padding:64px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background-image:linear-gradient(135deg,#C8A96E,#E2C99A);
+}
+.result-block{
+  padding:40px;text-align:center;
+  border-right:1px solid rgba(10,10,8,0.15);
+}
+.result-block:last-child{border-right:none;}
+.result-n{
+  font-family:'Libre Baskerville',serif;
+  font-size:52px;font-weight:700;color:var(--black);line-height:1;
+}
+.result-l{font-size:12px;color:rgba(10,10,8,.55);letter-spacing:1px;margin-top:6px;text-transform:uppercase;}
+
+/* TESTIMONIALS */
+.testimonials{padding:120px 64px;background:var(--black);}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:72px;}
+.test-card{
+  background:var(--surface);border:1px solid var(--border);
+  padding:44px 36px;position:relative;transition:border-color .3s;
+}
+.test-card:hover{border-color:rgba(200,169,110,0.4);}
+.test-mark{
+  font-family:'Libre Baskerville',serif;
+  font-size:72px;color:rgba(200,169,110,0.12);
+  position:absolute;top:16px;left:28px;line-height:1;
+}
+.test-text{
+  font-family:'Libre Baskerville',serif;
+  font-size:16px;font-style:italic;
+  color:var(--cream);line-height:1.75;
+  margin-bottom:32px;position:relative;z-index:1;
+}
+.test-author{display:flex;align-items:center;gap:14px;}
+.test-av{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Libre Baskerville',serif;font-size:16px;
+  color:var(--black);font-weight:700;
+}
+.test-name{font-size:14px;font-weight:600;color:var(--cream);}
+.test-case{font-size:11px;color:var(--muted);margin-top:2px;}
+.test-stars{color:var(--gold);font-size:12px;margin-bottom:20px;}
+
+/* CONTACT */
+.contact{
+  background:var(--surface);padding:120px 64px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+}
+.contact-left .section-title{margin-bottom:20px;}
+.contact-desc{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:40px;font-weight:300;}
+.contact-infos{display:flex;flex-direction:column;gap:20px;}
+.contact-info{display:flex;align-items:flex-start;gap:16px;}
+.ci-icon{
+  width:44px;height:44px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.ci-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.ci-val{font-size:14px;color:var(--cream);font-weight:500;}
+.contact-form{display:flex;flex-direction:column;gap:16px;}
+.cf-group{display:flex;flex-direction:column;gap:6px;}
+.cf-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.cf-input,.cf-select,.cf-area{
+  background:var(--black);border:1px solid var(--border);
+  color:var(--cream);padding:14px 16px;
+  font-size:14px;font-family:'Inter',sans-serif;
+  outline:none;transition:border-color .3s;
+  border-radius:0;
+}
+.cf-input::placeholder,.cf-area::placeholder{color:var(--muted);}
+.cf-input:focus,.cf-area:focus,.cf-select:focus{border-color:var(--gold);}
+.cf-area{resize:none;height:100px;}
+.cf-select{cursor:pointer;}
+.cf-select option{background:var(--surface);}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cf-submit{
+  background:var(--gold);color:var(--black);border:none;
+  padding:16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;
+  transition:all .3s;
+}
+.cf-submit:hover{background:var(--gold2);}
+.cf-disclaimer{font-size:11px;color:var(--muted);line-height:1.6;}
+
+/* FOOTER */
+footer{
+  background:var(--dark);border-top:1px solid var(--border);
+  padding:60px 64px 32px;
+}
+.footer-main{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px;padding-bottom:48px;
+  border-bottom:1px solid var(--border2);margin-bottom:32px;
+}
+.footer-brand .logo{font-size:18px;display:block;margin-bottom:16px;text-decoration:none;}
+.footer-brand p{font-size:12px;color:var(--muted);line-height:1.8;max-width:280px;}
+.footer-brand .oab-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:16px;font-size:11px;color:var(--gold);
+  border:1px solid var(--border);padding:6px 14px;
+}
+.footer-col h4{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--cream);margin-bottom:20px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .3s;}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:11px;color:rgba(136,136,128,.4);letter-spacing:.5px;}
+.footer-oab{font-size:11px;color:var(--muted);}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal:nth-child(2){transition-delay:.1s;}
+.reveal:nth-child(3){transition-delay:.2s;}
+.reveal:nth-child(4){transition-delay:.3s;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:16px 24px;}
+  nav.scrolled{padding:12px 24px;}
+  .nav-center,.nav-phone{display:none;}
+  .hero-content{padding:120px 24px 60px;}
+  .hero-bottom{grid-template-columns:repeat(2,1fr);}
+  .hero-stat{padding:24px 20px;}
+  .areas{padding:80px 24px;}
+  .areas-header{grid-template-columns:1fr;}
+  .areas-grid{grid-template-columns:1fr;}
+  .about{grid-template-columns:1fr;padding:80px 24px;}
+  .team{padding:80px 24px;}
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .results-strip{grid-template-columns:repeat(2,1fr);padding:40px 24px;}
+  .testimonials{padding:80px 24px;}
+  .test-grid{grid-template-columns:1fr;}
+  .contact{grid-template-columns:1fr;padding:80px 24px;}
+  footer{padding:40px 24px 24px;}
+  .footer-main{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">Monteiro<span> & Associados</span></a>
+  <ul class="nav-center">
+    <li><a href="#areas">Áreas</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-phone">(11) 3040-8800</span>
+    <a href="#contato" class="nav-cta">Consulta Gratuita</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-line-v"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Advocacia Empresarial · Desde 1998</div>
+    <h1 class="hero-title">
+      Direito que<br>
+      <em>protege</em><br>
+      o que importa.
+    </h1>
+    <p class="hero-desc">
+      Há mais de 25 anos assessorando empresas e pessoas com excelência jurídica, estratégia e resultados concretos.
+    </p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn-gold">Falar com um Advogado</a>
+      <a href="#areas" class="btn-ghost-gold">Nossas Áreas</a>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-stat">
+      <div class="stat-n">25<span>+</span></div>
+      <div class="stat-l">Anos de experiência</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">3<span>k+</span></div>
+      <div class="stat-l">Casos resolvidos</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">98<span>%</span></div>
+      <div class="stat-l">Taxa de sucesso</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">48</div>
+      <div class="stat-l">Advogados especializados</div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas" id="areas">
+  <div class="areas-header">
+    <div>
+      <div class="section-tag">Especialidades</div>
+      <h2 class="section-title">Áreas de<br><em>atuação</em></h2>
+    </div>
+    <p class="areas-desc">Atuamos com profundidade em áreas estratégicas do direito, com equipes especializadas e atualizadas para cada demanda.</p>
+  </div>
+  <div class="areas-grid">
+    <div class="area-card reveal">
+      <div class="area-num">01</div>
+      <div class="area-icon">🏢</div>
+      <div class="area-name">Direito Empresarial</div>
+      <p class="area-desc">Contratos, fusões e aquisições, reestruturação societária e governança corporativa para empresas de todos os portes.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+    <div class="area-card reveal">
+      <div class="area-num">02</div>
+      <div class="area-icon">⚖️</div>
+      <div class="area-name">Contencioso Cível</div>
+      <p class="area-desc">Representação em litígios civis e comerciais, com estratégia processual focada em eficiência e resultado.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+    <div class="area-card reveal">
+      <div class="area-num">03</div>
+      <div class="area-icon">📋</div>
+      <div class="area-name">Trabalhista</div>
+      <p class="area-desc">Defesa de empregadores e empregados em ações trabalhistas, além de compliance e gestão preventiva de riscos.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+    <div class="area-card reveal">
+      <div class="area-num">04</div>
+      <div class="area-icon">💰</div>
+      <div class="area-name">Tributário</div>
+      <p class="area-desc">Planejamento tributário, contencioso fiscal e recuperação de créditos, com foco em eficiência e segurança jurídica.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+    <div class="area-card reveal">
+      <div class="area-num">05</div>
+      <div class="area-icon">🔒</div>
+      <div class="area-name">Proteção de Dados (LGPD)</div>
+      <p class="area-desc">Adequação à LGPD, políticas de privacidade, contratos de dados e resposta a incidentes para empresas.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+    <div class="area-card reveal">
+      <div class="area-num">06</div>
+      <div class="area-icon">🏘️</div>
+      <div class="area-name">Imobiliário</div>
+      <p class="area-desc">Transações imobiliárias, due diligence, regularização de imóveis e contratos de locação e compra e venda.</p>
+      <a href="#" class="area-link">Saiba mais →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="about-left">
+    <div class="about-main-box"></div>
+    <div class="about-year-badge">
+      <div class="about-year">25</div>
+      <div class="about-year-label">anos</div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="section-tag">Sobre o Escritório</div>
+    <h2 class="section-title">Excelência jurídica<br>com <em>resultados reais</em></h2>
+    <p class="about-text">
+      Fundado em 1998, o Monteiro & Associados consolidou-se como referência em advocacia empresarial no Brasil. Nossa abordagem combina rigor técnico, experiência prática e visão estratégica para entregar soluções que vão além do processo.
+    </p>
+    <div class="about-quote">
+      <p>"Direito não é apenas norma. É o instrumento mais poderoso para proteger o que foi construído com esforço."</p>
+      <cite>— Dr. Fernando Monteiro, Sócio Fundador</cite>
+    </div>
+    <div class="credentials">
+      <div class="credential">
+        <div class="cred-icon">🏆</div>
+        <div class="cred-text"><strong>Top 10 Nacional</strong>Chambers & Partners 2024</div>
+      </div>
+      <div class="credential">
+        <div class="cred-icon">📍</div>
+        <div class="cred-text"><strong>4 escritórios</strong>SP · RJ · DF · Fortaleza</div>
+      </div>
+      <div class="credential">
+        <div class="cred-icon">🌎</div>
+        <div class="cred-text"><strong>Atuação internacional</strong>Rede de parceiros globais</div>
+      </div>
+      <div class="credential">
+        <div class="cred-icon">✅</div>
+        <div class="cred-text"><strong>OAB Certificado</strong>SP 000.000 · RJ 000.000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="equipe">
+  <div class="section-tag">Nossa Equipe</div>
+  <h2 class="section-title">Os especialistas<br>por trás dos <em>resultados</em></h2>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner">
+          <div class="team-avatar">F</div>
+        </div>
+        <div class="team-photo-overlay">
+          <div class="team-socials">
+            <div class="team-social">in</div>
+            <div class="team-social">✉</div>
+          </div>
+        </div>
+      </div>
+      <div class="team-name">Dr. Fernando Monteiro</div>
+      <div class="team-area">Sócio Fundador</div>
+      <div class="team-oab">Empresarial · Tributário · OAB/SP 12.345</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner">
+          <div class="team-avatar">C</div>
+        </div>
+        <div class="team-photo-overlay">
+          <div class="team-socials">
+            <div class="team-social">in</div>
+            <div class="team-social">✉</div>
+          </div>
+        </div>
+      </div>
+      <div class="team-name">Dra. Carla Andrade</div>
+      <div class="team-area">Sócia · Trabalhista</div>
+      <div class="team-oab">Contencioso Trabalhista · OAB/SP 34.567</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner">
+          <div class="team-avatar">R</div>
+        </div>
+        <div class="team-photo-overlay">
+          <div class="team-socials">
+            <div class="team-social">in</div>
+            <div class="team-social">✉</div>
+          </div>
+        </div>
+      </div>
+      <div class="team-name">Dr. Rafael Costa</div>
+      <div class="team-area">Sócio · Cível</div>
+      <div class="team-oab">Contencioso Cível · OAB/RJ 56.789</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner">
+          <div class="team-avatar">A</div>
+        </div>
+        <div class="team-photo-overlay">
+          <div class="team-socials">
+            <div class="team-social">in</div>
+            <div class="team-social">✉</div>
+          </div>
+        </div>
+      </div>
+      <div class="team-name">Dra. Ana Figueiredo</div>
+      <div class="team-area">Sócia · LGPD & Tech</div>
+      <div class="team-oab">Direito Digital · OAB/SP 78.901</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<div class="results-strip">
+  <div class="result-block">
+    <div class="result-n">3.200+</div>
+    <div class="result-l">Casos encerrados</div>
+  </div>
+  <div class="result-block">
+    <div class="result-n">R$2bi</div>
+    <div class="result-l">Em ativos protegidos</div>
+  </div>
+  <div class="result-block">
+    <div class="result-n">98%</div>
+    <div class="result-l">Taxa de êxito</div>
+  </div>
+  <div class="result-block">
+    <div class="result-n">4.9★</div>
+    <div class="result-l">Avaliação dos clientes</div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="depoimentos">
+  <div class="section-tag">Depoimentos</div>
+  <h2 class="section-title">O que dizem<br>nossos <em>clientes</em></h2>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">O Monteiro & Associados salvou nossa empresa em uma disputa tributária que durava 4 anos. A equipe é extraordinária — técnica, estratégica e incrivelmente dedicada.</p>
+      <div class="test-author">
+        <div class="test-av">M</div>
+        <div>
+          <div class="test-name">Marcos Faria</div>
+          <div class="test-case">CEO · Construtora Faria S.A.</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">Contratamos para a adequação à LGPD e acabamos expandindo o escopo para toda a área contratual. A Dra. Ana e sua equipe entenderam nosso negócio profundamente.</p>
+      <div class="test-author">
+        <div class="test-av">J</div>
+        <div>
+          <div class="test-name">Juliana Ramos</div>
+          <div class="test-case">Diretora Jurídica · TechScale</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">Na aquisição da nossa empresa pelo fundo americano, o Dr. Fernando conduziu todo o processo com maestria. Segurança jurídica total em cada etapa da transação.</p>
+      <div class="test-author">
+        <div class="test-av">P</div>
+        <div>
+          <div class="test-name">Paulo Henrique Lima</div>
+          <div class="test-case">Fundador · Grupo PHL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contato">
+  <div class="contact-left">
+    <div class="section-tag">Fale Conosco</div>
+    <h2 class="section-title">Consulta<br><em>gratuita</em></h2>
+    <p class="contact-desc">Agende uma conversa com um de nossos especialistas. Sem compromisso — apenas uma análise honesta do seu caso.</p>
+    <div class="contact-infos">
+      <div class="contact-info">
+        <div class="ci-icon">📍</div>
+        <div><div class="ci-label">Endereço</div><div class="ci-val">Av. Paulista, 1374 · 12º andar · São Paulo/SP</div></div>
+      </div>
+      <div class="contact-info">
+        <div class="ci-icon">📞</div>
+        <div><div class="ci-label">Telefone</div><div class="ci-val">(11) 3040-8800</div></div>
+      </div>
+      <div class="contact-info">
+        <div class="ci-icon">✉️</div>
+        <div><div class="ci-label">E-mail</div><div class="ci-val">contato@monteiroadv.com.br</div></div>
+      </div>
+      <div class="contact-info">
+        <div class="ci-icon">🕐</div>
+        <div><div class="ci-label">Horário</div><div class="ci-val">Seg–Sex · 8h às 19h</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <form class="contact-form" onsubmit="submitForm(event)">
+      <div class="cf-row">
+        <div class="cf-group">
+          <div class="cf-label">Nome completo</div>
+          <input class="cf-input" placeholder="Seu nome" required>
+        </div>
+        <div class="cf-group">
+          <div class="cf-label">Empresa (opcional)</div>
+          <input class="cf-input" placeholder="Nome da empresa">
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-group">
+          <div class="cf-label">E-mail</div>
+          <input class="cf-input" type="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="cf-group">
+          <div class="cf-label">Telefone</div>
+          <input class="cf-input" placeholder="(11) 99999-9999">
+        </div>
+      </div>
+      <div class="cf-group">
+        <div class="cf-label">Área de interesse</div>
+        <select class="cf-select">
+          <option>Direito Empresarial</option>
+          <option>Contencioso Cível</option>
+          <option>Trabalhista</option>
+          <option>Tributário</option>
+          <option>LGPD / Proteção de Dados</option>
+          <option>Imobiliário</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="cf-group">
+        <div class="cf-label">Descreva brevemente seu caso</div>
+        <textarea class="cf-area" placeholder="Conte-nos sobre sua situação jurídica..."></textarea>
+      </div>
+      <button class="cf-submit" type="submit" id="cfBtn">Solicitar Consulta Gratuita →</button>
+      <p class="cf-disclaimer">Suas informações são confidenciais e protegidas pelo sigilo advogado-cliente. Retornaremos em até 24h úteis.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#" class="logo">Monteiro<span> & Associados</span></a>
+      <p>Advocacia empresarial com excelência técnica e comprometimento com resultados há mais de 25 anos.</p>
+      <div class="oab-badge">⚖️ OAB/SP 12.345 · OAB/RJ 56.789</div>
+    </div>
+    <div class="footer-col">
+      <h4>Áreas</h4>
+      <ul>
+        <li><a href="#">Empresarial</a></li>
+        <li><a href="#">Cível</a></li>
+        <li><a href="#">Trabalhista</a></li>
+        <li><a href="#">Tributário</a></li>
+        <li><a href="#">LGPD</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Escritório</h4>
+      <ul>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Nossa equipe</a></li>
+        <li><a href="#">Publicações</a></li>
+        <li><a href="#">Carreiras</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="#">São Paulo</a></li>
+        <li><a href="#">Rio de Janeiro</a></li>
+        <li><a href="#">Brasília</a></li>
+        <li><a href="#">Fortaleza</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Monteiro & Associados Advocacia. Todos os direitos reservados.</div>
+    <div class="footer-oab">Publicidade em conformidade com o Provimento 205/2021 OAB</div>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// REVEAL
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// FORM
+function submitForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('cfBtn');
+  btn.textContent='Enviando...';
+  btn.style.background='var(--muted)';
+  setTimeout(()=>{
+    btn.textContent='✓ Solicitação enviada! Retornaremos em breve.';
+    btn.style.background='#10B981';
+    setTimeout(()=>{
+      btn.textContent='Solicitar Consulta Gratuita →';
+      btn.style.background='var(--gold)';
+      e.target.reset();
+    },4000);
+  },1200);
+}
+</script>
+</body>
+</html>
